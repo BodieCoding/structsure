@@ -25,6 +25,83 @@ Optional backends (recommended via extras):
 - Local resume extraction (no API key): `python examples/resume_extraction_demo.py`
 - Hybrid simple usage (auto-detect provider): see `examples/simple_usage.py`
 
+## Schema Designer (GUI)
+
+Design schemas, prompt models, and get valid JSON with self-correction — locally or in the cloud.
+
+<p align="center">
+  <img src="assets/structure_gui.png" alt="Structsure schema designer GUI" width="900" />
+</p>
+
+- Install extras: `pip install -e .[streamlit,ollama]`
+- Run: `streamlit run structsure/schema_designer_app.py`
+- Features:
+  - Define fields, see live JSON Schema
+  - Split inputs: Instructions, Source text, Example JSON
+  - Choose backend (Ollama/OpenAI), model, retries
+  - 2- or 3-column layout with live output
+
+## Choosing a local model (with Ollama)
+
+Ollama is the local runtime; you still choose a model. Good defaults:
+- Tiny/fast (CPU-friendly): `gemma2:2b`, `phi3:mini` (smallest footprint; fine for simple schemas)
+- Mid-size (better accuracy): `mistral:7b`, `qwen2.5:7b`, `gemma2:7b`
+- Balanced default: `llama3` (8B instruct)
+
+Pull models (examples):
+```
+ollama pull llama3
+ollama pull gemma2:2b
+ollama pull phi3:mini
+ollama pull mistral:7b
+ollama pull qwen2.5:7b
+```
+Then run with `--provider ollama --model <name>` or set the model in the examples.
+
+## CLI Usage
+
+Install extras you need (example: local-only):
+
+```
+pip install -e .[ollama]
+```
+
+Basic usage (auto-detect provider: OpenAI if `OPENAI_API_KEY` set, else Ollama):
+
+```
+structsure "Extract a bullet list of tasks from: ..."
+```
+
+Specify provider/model and retries:
+
+```
+structsure "Extract JSON for ..." --provider ollama --model llama3 --retries 3
+```
+
+Use an input file and a JSON Schema file (generated from Pydantic):
+
+```
+structsure @prompt.txt --schema schema.json
+```
+
+## MCP Server
+
+Install MCP extra (and a backend):
+
+```
+pip install -e .[mcp,ollama]
+```
+
+Start the server:
+
+```
+structsure-mcp
+```
+
+Exposed tool: `generate_structured`
+- Params: `prompt` (str), `schema_json` (str, optional), `model` (optional), `provider` (optional; "openai" or "ollama"), `max_retries` (int)
+- Auto-detects provider and defaults to `llama3` (Ollama) or `gpt-4o` (OpenAI) when not provided
+
 ## Quick Example
 
 ```python

@@ -21,6 +21,17 @@ openai = [
 ollama = [
     "ollama",
 ]
+mcp = [
+    "mcp",
+]
+streamlit = [
+    "streamlit>=1.31",
+    "genson>=1.2.2",
+]
+
+[project.scripts]
+structsure = "structsure.cli:main"
+structsure-mcp = "structsure.mcp_server:main"
 
 [build-system]
 requires = ["hatchling"]

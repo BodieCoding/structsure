@@ -9,6 +9,7 @@ Prerequisites:
 Then run:
     python examples/resume_extraction_demo.py
 """
+import json
 from typing import List, Optional
 from pydantic import BaseModel, Field
 from structsure import generate, MaxRetriesExceededError
@@ -52,6 +53,47 @@ sample_resume_text = (
     "Education: B.S. in Computer Science from UT Austin, 2015-2019."
 )
 
+# Preprompt/instructions and an example JSON to guide the model
+pre_instructions = (
+    "Extract a structured resume JSON matching the Pydantic schema. "
+    "Only return the JSON object with no extra commentary."
+)
+
+example_json = {
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "555-123-4567",
+    "location": "Austin, TX",
+    "links": [
+        "https://linkedin.com/in/janedoe",
+        "https://github.com/janedoe"
+    ],
+    "summary": "Full-stack engineer with experience in Python and React.",
+    "skills": ["Python", "FastAPI", "React", "Postgres", "Docker", "AWS"],
+    "experience": [
+        {
+            "company": "Acme Corp",
+            "role": "Senior Software Engineer",
+            "start_date": "2022-01",
+            "end_date": "Present",
+            "highlights": [
+                "Led migration to FastAPI",
+                "Reduced API latency by 40%",
+                "Mentored 4 engineers"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "UT Austin",
+            "degree": "B.S. in Computer Science",
+            "start_year": 2015,
+            "end_year": 2019
+        }
+    ]
+}
+example_json_str = json.dumps(example_json, indent=2)
+
 
 def main() -> None:
     try:
@@ -60,11 +102,11 @@ def main() -> None:
             client=None,
             model="llama3",
             response_model=Resume,
-            prompt=(
-                "Extract a structured resume JSON from the following text. "
-                "Include name, contact info, links, summary, skills, experience (with highlights), and education. "
-                "Only return the JSON object.\n\n" + sample_resume_text
-            ),
+            prompt="\n\n".join([
+                pre_instructions,
+                "Example JSON:\n" + example_json_str,
+                "Input:\n" + sample_resume_text,
+            ]),
             max_retries=3,
             provider="ollama",
         )
