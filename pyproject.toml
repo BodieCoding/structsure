@@ -1,0 +1,27 @@
+[project]
+name = "structsure"
+version = "0.1.0"
+description = "A simple, reliable library for getting structured JSON output from LLMs with self-correction."
+authors = [{ name = "Your Name", email = "your@email.com" }]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+openai = [
+    "openai>=1.0",
+]
+ollama = [
+    "ollama",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
