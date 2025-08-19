@@ -8,6 +8,8 @@ A simple, reliable library for getting structured JSON output from LLMs with sel
 
 - Monetization plan: see [docs/monetization.md](docs/monetization.md)
 
+Note: This repository is the Community Edition (CE). Pro features (cloud providers, cloud save/history, hosted API) are gated and unlock when a license is present.
+
 ## Installation
 
 - Ensure you have Python 3.8+
@@ -42,6 +44,7 @@ Design schemas, prompt models, and get valid JSON with self-correction — local
   - Split inputs: Instructions, Source text, Example JSON
   - Choose backend (Ollama/OpenAI), model, retries
   - 2- or 3-column layout with live output
+- In CE, only the Ollama provider is available. Set an environment variable `STRUCTSURE_LICENSE=...` to unlock Pro features (or install the private `structsure_pro` package when available).
 
 ## Choosing a local model (with Ollama)
 

@@ -12,6 +12,7 @@ from pathlib import Path
 
 from structsure.schema import model_from_spec
 from structsure.core import generate
+from structsure.pro import pro_enabled
 
 # Resolve logo path relative to project root
 _project_root = Path(__file__).resolve().parent.parent
@@ -30,7 +31,11 @@ st.caption("Design schemas, prompt models, and get valid JSON with self-correcti
 
 with st.sidebar:
     st.markdown("### Backend")
-    provider = st.selectbox("Provider", options=["ollama", "openai"], index=0)
+    is_pro = pro_enabled()
+    provider_options = ["ollama"] + (["openai"] if is_pro else [])
+    provider = st.selectbox("Provider", options=provider_options, index=0)
+    if not is_pro:
+        st.caption("Cloud providers are available in Pro. Set STRUCTSURE_LICENSE to unlock.")
     model = st.text_input("Model", value="llama3" if provider == "ollama" else "gpt-4o")
     retries = st.number_input("Max retries", min_value=1, max_value=10, value=3)
     layout_choice = st.selectbox("Layout", options=["3 columns", "2 columns"], index=0)
