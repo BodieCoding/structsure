@@ -6,8 +6,6 @@
 
 A simple, reliable library for getting structured JSON output from LLMs with self-correction.
 
-- Monetization plan: see [docs/monetization.md](docs/monetization.md)
-
 Note: This repository is the Community Edition (CE). Pro features (cloud providers, cloud save/history, hosted API) are gated and unlock when a license is present.
 
 ## Installation
