@@ -1,3 +1,5 @@
+[![MSeeP.ai Security Assessment Badge](https://mseep.net/pr/bodiecoding-structsure-badge.png)](https://mseep.ai/app/bodiecoding-structsure)
+
 # structsure
 
 <p align="center">
