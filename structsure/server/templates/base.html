@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or 'Structsure' }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 24px; }
+    header { display:flex; align-items:center; gap:12px; margin-bottom: 20px; }
+    header img { height: 32px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; background:#fff; }
+    .btn { display:inline-block; padding:8px 12px; border:1px solid #111; border-radius:6px; text-decoration:none; color:#111; background:#f7f7f7; }
+    .btn.primary { background:#111; color:#fff; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding: 8px; border-bottom:1px solid #eee; font-size: 14px; }
+    pre { background:#0b1021; color:#e6edf3; padding:12px; border-radius:6px; overflow:auto; }
+    textarea { width:100%; min-height: 120px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+    input[type="text"] { width:100%; padding:8px; }
+    .badge { font-size: 12px; padding: 4px 8px; border-radius: 999px; border:1px solid #e5e7eb; background:#f8fafc; color:#111; }
+    .badge.pro { background:#111; color:#fff; border-color:#111; }
+    .spacer { flex:1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/assets/structsure_logo.png" alt="logo" />
+      <h2 style="margin:0">Structsure</h2>
+      <div class="spacer"></div>
+      {% set plan = license_plan() if license_plan is not none else 'free' %}
+      <span class="badge {% if plan != 'free' %}pro{% endif %}">{{ plan|capitalize }}</span>
+    </header>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

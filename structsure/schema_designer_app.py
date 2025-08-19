@@ -35,7 +35,7 @@ with st.sidebar:
     provider_options = ["ollama"] + (["openai"] if is_pro else [])
     provider = st.selectbox("Provider", options=provider_options, index=0)
     if not is_pro:
-        st.caption("Cloud providers are available in Pro. Set STRUCTSURE_LICENSE to unlock.")
+        st.caption("Cloud providers are available in Pro. Activate a license via LICENZY_LICENSE_KEY or 'licenzy activate'.")
     model = st.text_input("Model", value="llama3" if provider == "ollama" else "gpt-4o")
     retries = st.number_input("Max retries", min_value=1, max_value=10, value=3)
     layout_choice = st.selectbox("Layout", options=["3 columns", "2 columns"], index=0)

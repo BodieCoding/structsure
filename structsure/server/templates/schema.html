@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="grid">
+    <div class="card">
+      <h3>Schema {{ schema.id }} — {{ schema.name }}</h3>
+      <pre>{{ schema.schema_json }}</pre>
+
+      <h4>Run Prompt</h4>
+      <form method="post" action="/ui/generate">
+        <input type="hidden" name="schema_id" value="{{ schema.id }}" />
+        <label>Instructions</label>
+        <textarea name="instructions" placeholder="Extract JSON matching the schema."></textarea>
+        <label>Example JSON (optional)</label>
+        <textarea name="example_json" placeholder='{"title": "Buy milk"}'></textarea>
+        <label>Source text</label>
+        <textarea name="source_text" placeholder="..."></textarea>
+        <div style="margin-top:8px"><button class="btn primary" type="submit">Generate</button></div>
+      </form>
+    </div>
+    <div class="card">
+      <h3>Recent Runs</h3>
+      {% if runs %}
+        {% for r in runs %}
+          <div style="margin-bottom:16px">
+            <div><b>Run {{ r.id }}</b> — {{ r.created_at }}</div>
+            {% if r.output_json %}
+              <pre>{{ r.output_json }}</pre>
+            {% else %}
+              <div>No output</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div>No runs yet.</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -16,13 +16,13 @@ dependencies = [
 
 [project.optional-dependencies]
 openai = [
-    "openai>=1.0",
+    "openai>=1.3",
 ]
 ollama = [
-    "ollama",
+    "ollama>=0.1.7",
 ]
 mcp = [
-    "mcp",
+    "mcp>=0.3.1",
 ]
 streamlit = [
     "streamlit>=1.31",
@@ -33,6 +33,10 @@ server = [
     "uvicorn[standard]>=0.30",
     "SQLAlchemy>=2.0",
     "psycopg[binary]>=3.1",
+    "jinja2>=3.1",
+]
+pro = [
+    "licenzy>=1.0.0",
 ]
 
 [project.scripts]
