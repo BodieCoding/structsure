@@ -6,6 +6,8 @@
 
 A simple, reliable library for getting structured JSON output from LLMs with self-correction.
 
+- Monetization plan: see [docs/monetization.md](docs/monetization.md)
+
 ## Installation
 
 - Ensure you have Python 3.8+
